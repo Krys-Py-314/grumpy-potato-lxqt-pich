@@ -51,7 +51,7 @@ PACKAGES=(
     # The three LXQt bits you asked for
     lxqt-panel 
         lxqt-session 
-        liblxqt
+        liblxqt-dev
         lxqt-config
         lxqt-themes 
         lxqt-policykit 
@@ -65,10 +65,14 @@ PACKAGES=(
         # lxqt-admin              # Easily handled entirely through standard terminal commands (timedatectl, useradd).
         # lxqt-sudo               # Grphical sudo / Rarely needed if you launch administrative software directly from a terminal window
     # Tools
+    # file manager
     pcmanfm-qt
+    # terminal
     qterminal
+    # browser
     vimb
-    parcellite
+    # clipboqrd manager
+    qlipper
     # A single small font so Qt has something to render with
     fonts-dejavu-core
     # Session D-Bus for the Qt apps (pcmanfm-qt depends on it anyway)
