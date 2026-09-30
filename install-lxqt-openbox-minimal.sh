@@ -343,8 +343,8 @@ SHORTCUTS="    <!-- Custom LXQt/Openbox Minimal Shortcuts -->\n\
 # 4. Insert the shortcuts right before the closing </keyboard> tag
 sed -i "/<\/keyboard>/i ${SHORTCUTS}" "$CONFIG_FILE"
 
-# 5. Tell Openbox to instantly reload the configuration
-openbox --reconfigure
+## 5. Tell Openbox to instantly reload the configuration
+#openbox --reconfigure
 
 echo "✅ Shortcuts added! Try pressing Win+W, Win+T, or Win+F now."
 
