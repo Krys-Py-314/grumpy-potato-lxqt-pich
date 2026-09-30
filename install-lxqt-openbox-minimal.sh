@@ -300,6 +300,9 @@ echo "✅ Parcellite autostart script generated successfully!"
 #------------------------------------------------------------
 
 # 1. Define the Openbox config file path
+printf " $ HOME variable "
+echo $HOME
+
 CONFIG_FILE="$HOME/.config/openbox/rc.xml"
 
 # 2. Make a backup of your current config just in case
