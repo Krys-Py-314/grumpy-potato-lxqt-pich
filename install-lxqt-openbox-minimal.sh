@@ -302,10 +302,22 @@ echo "✅ Parcellite autostart script generated successfully!"
 # 1. Define the Openbox config file path
 printf " $ TARGET_USER variable "
 echo $TARGET_USER
-printf " $ HOME variable "
-echo $HOME
 
-CONFIG_FILE="$HOME/.config/openbox/rc.xml"
+user=$TARGET_USER
+
+# Extract the 6th field (home directory) from the passwd database
+user_home=$(getent passwd "$user" | cut -d: -f6)
+
+if [ -n "$user_home" ]; then
+    echo "The home directory for $user is: $user_home"
+else
+    echo "User '$user' does not exist."
+fi
+
+printf " $ HOME variable "
+echo "$user_home"
+
+CONFIG_FILE=""$user_home"/.config/openbox/rc.xml"
 
 # 2. Make a backup of your current config just in case
 cp "$CONFIG_FILE" "${CONFIG_FILE}.bak"
