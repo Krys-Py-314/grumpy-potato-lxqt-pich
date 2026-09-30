@@ -49,9 +49,26 @@ PACKAGES=(
     # Window manager
     openbox
     # The three LXQt bits you asked for
-    lxqt-panel
+    lxqt-panel 
+        lxqt-session 
+        liblxqt
+        lxqt-config
+        lxqt-themes 
+        lxqt-policykit 
+        lxqt-qtplugin
+    # Completely Optional
+        # lxqt-runner 
+        # lxqt-about
+        # lxqt-notificationd
+        # lxqt-powermanagement
+        # lxqt-globalkeyshortcuts # If you are using a custom window manager (like i3, Openbox, or Labwc), you will map your hotkeys directly in that WM's configuration file anyway
+        # lxqt-admin              # Easily handled entirely through standard terminal commands (timedatectl, useradd).
+        # lxqt-sudo               # Grphical sudo / Rarely needed if you launch administrative software directly from a terminal window
+    # Tools
     pcmanfm-qt
     qterminal
+    vimb
+    parcellite
     # A single small font so Qt has something to render with
     fonts-dejavu-core
     # Session D-Bus for the Qt apps (pcmanfm-qt depends on it anyway)
@@ -252,6 +269,59 @@ fi
 
 chown -R "$TARGET_USER:$TARGET_GROUP" \
     "$XINITRC" "$TARGET_HOME/.config/openbox" "$TARGET_HOME/.config/lxqt" "$TARGET_HOME/.config/pcmanfm-qt"
+
+#------------------------------------------------------------
+# Create the user autostart directory if it doesn't exist
+mkdir -p ~/.config/autostart
+
+# 2. Generate the Parcellite autostart desktop entry
+cat << 'EOF' > ~/.config/autostart/parcellite.desktop
+[Desktop Entry]
+Type=Application
+Name=Parcellite Clipboard Manager
+Comment=Autostart Parcellite for LXQt and Openbox
+Exec=parcellite
+Terminal=false
+X-LXQt-Need-Tray=true
+EOF
+
+echo "✅ Parcellite autostart script generated successfully!"
+
+#------------------------------------------------------------
+
+# 1. Define the Openbox config file path
+CONFIG_FILE="$HOME/.config/openbox/rc.xml"
+
+# 2. Make a backup of your current config just in case
+cp "$CONFIG_FILE" "${CONFIG_FILE}.bak"
+
+# 3. Define the new shortcuts to insert
+SHORTCUTS="    <!-- Custom LXQt/Openbox Minimal Shortcuts -->\n\
+    <keybind key=\"W-w\">\n\
+      <action name=\"Execute\">\n\
+        <command>vimb</command>\n\
+      </action>\n\
+    </keybind>\n\
+    <keybind key=\"W-t\">\n\
+      <action name=\"Execute\">\n\
+        <command>qterminal</command>\n\
+      </action>\n\
+    </keybind>\n\
+    <keybind key=\"W-f\">\n\
+      <action name=\"Execute\">\n\
+        <command>pcmanfm-qt</command>\n\
+      </action>\n\
+    </keybind>"
+
+# 4. Insert the shortcuts right before the closing </keyboard> tag
+sed -i "/<\/keyboard>/i ${SHORTCUTS}" "$CONFIG_FILE"
+
+# 5. Tell Openbox to instantly reload the configuration
+openbox --reconfigure
+
+echo "✅ Shortcuts added! Try pressing Win+W, Win+T, or Win+F now."
+
+#------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
 # 4. Done
