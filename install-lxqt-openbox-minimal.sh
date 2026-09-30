@@ -64,17 +64,23 @@ PACKAGES=(
         # lxqt-globalkeyshortcuts # If you are using a custom window manager (like i3, Openbox, or Labwc), you will map your hotkeys directly in that WM's configuration file anyway
         # lxqt-admin              # Easily handled entirely through standard terminal commands (timedatectl, useradd).
         # lxqt-sudo               # Grphical sudo / Rarely needed if you launch administrative software directly from a terminal window
+
     # Tools
     # file manager
     pcmanfm-qt
+
     # terminal
     qterminal
+
     # browser
     vimb
+
     # clipboqrd manager
     qlipper
+
     # A single small font so Qt has something to render with
     fonts-dejavu-core
+
     # Session D-Bus for the Qt apps (pcmanfm-qt depends on it anyway)
     dbus-x11
 )
