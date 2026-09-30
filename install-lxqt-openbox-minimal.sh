@@ -300,6 +300,8 @@ echo "✅ Parcellite autostart script generated successfully!"
 #------------------------------------------------------------
 
 # 1. Define the Openbox config file path
+printf " $ TARGET_USER variable "
+echo $TARGET_USER
 printf " $ HOME variable "
 echo $HOME
 
